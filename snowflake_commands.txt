@@ -1,0 +1,62 @@
+ 77538229171
+
+https://twduxei-rj22747.snowflakecomputing.com/console/login.
+
+create warehouse transforming
+create database raw;
+create database analytics
+create schema raw.jaffle_shop
+create schema raw.stripe;
+
+create table raw.jaffle_shop. customers
+( id integer,
+first_name varchar,
+last_name varchar
+);
+
+CREATE OR REPLACE FILE FORMAT my_csv_format
+TYPE = 'CSV'
+FIELD_DELIMITER = ','
+SKIP_HEADER = 1;
+
+
+COPY INTO raw.jaffle_shop.customers (id, first_name, last_name)
+FROM 's3://dbt-tutorial-public/jaffle_shop_customers.csv'
+FILE_FORMAT = my_csv_format;
+
+create table raw.jaffle_shop.orders
+( id integer,
+user_id integer,
+order_date date,
+status varchar,
+_etl_loaded_at timestamp default current_timestamp
+);
+
+copy into raw.jaffle_shop.orders (id, user_id, order_date, status)
+from 's3://dbt-tutorial-public/jaffle_shop_orders.csv'
+file_format = my_csv_format;
+
+create table raw.stripe.payment
+( id integer,
+orderid integer,
+paymentmethod varchar,
+status varchar,
+amount integer,
+created date,
+_batched_at timestamp default current_timestamp
+);
+
+
+copy into raw.stripe.payment (id, orderid, paymentmethod, status, amount, created)
+from 's3://dbt-tutorial-public/stripe_payments.csv'
+file_format = my_csv_format;
+
+select * from raw.jaffle_shop.customers; 
+select * from raw.jaffle_shop.orders;
+select * from raw.stripe.payment;
+
+select * from RAW.JAFFLE_SHOP.MY_FIRST_DBT_MODEL;
+select * from RAW.JAFFLE_SHOP.MY_SECOND_DBT_MODEL;
+
+select * from RAW.JAFFLE_SHOP.DIM_CUST;
+select * from RAW.JAFFLE_SHOP.STG_PAYMENTS;

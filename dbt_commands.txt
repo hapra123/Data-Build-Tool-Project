@@ -1,0 +1,17 @@
+python -m venv dbthardik  
+pip install dbt-core 
+pip install dbt-snowflake  
+dbt --version 
+dbt-snowflake --version  
+dbt init
+dbt run
+dbt run -m dim_cust  
+dbt run --select dim_cust  
+dbt debug
+dbt run --full-refresh 
+dbt clean
+dbt source freshness
+dbt test 
+dbt test --select test_type:singular
+dbt test --select test_type:generic
+

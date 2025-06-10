@@ -2,19 +2,25 @@ version: 2
 
 models:
   - name: stg_customers
+    description: Staging model for customer data. Standardizes and cleans customer records from the source table.
     columns:
       - name: customer_id
+        description: Unique identifier for each customer.
         tests:
           - unique
           - not_null
 
   - name: stg_orders
+    description: Staging model for order data. Prepares and cleans raw order records for downstream transformations.
     columns:
       - name: order_id
+        description: Unique identifier for each order.
         tests:
           - unique
           - not_null
+
       - name: status
+        description: Current status of the order, reflecting its position in the fulfillment lifecycle.
         tests:
           - accepted_values:
               values: ['placed', 'shipped', 'return_pending', 'returned', 'completed']

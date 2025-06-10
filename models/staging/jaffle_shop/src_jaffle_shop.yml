@@ -2,12 +2,20 @@ version: 2
 
 sources:
   - name: jaffle_shop
+    description: Source data for the Jaffle Shop project, containing customer and order information.
     database: raw
     schema: jaffle_shop
     tables:
       - name: customers
+        description: Contains a unique record for each customer who has placed an order.
+
       - name: orders
+        description: Contains individual order records, including information such as order ID, customer ID, and timestamps.
         loaded_at_field: _etl_loaded_at
         freshness:
-          warn_after: {count: 12, period: hour}
-          error_after: {count: 900, period: day}
+          warn_after: 
+            count: 12
+            period: hour
+          error_after: 
+            count: 900
+            period: day

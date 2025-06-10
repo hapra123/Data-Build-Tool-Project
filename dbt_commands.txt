@@ -14,4 +14,7 @@ dbt source freshness
 dbt test 
 dbt test --select test_type:singular
 dbt test --select test_type:generic
-
+dbt docs generate
+dbt docs serve --port 8001
+dbt compile --select model.sql
+dbt show --select model.sql

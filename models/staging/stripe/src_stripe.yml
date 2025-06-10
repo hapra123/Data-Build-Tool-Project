@@ -2,11 +2,17 @@ version: 2
 
 sources:
   - name: stg_payments
+    description: Source data from Stripe containing payment transaction details used for revenue and payment analysis.
     database: raw
     schema: stripe
     tables:
       - name: payment
+        description: Contains raw payment records from Stripe, including payment status, amount, method, and timestamps.
         loaded_at_field: _batched_at
         freshness:
-          warn_after: {count: 12, period: hour}
-          error_after: {count: 900, period: day}
+          warn_after: 
+            count: 12
+            period: hour
+          error_after: 
+            count: 900
+            period: day

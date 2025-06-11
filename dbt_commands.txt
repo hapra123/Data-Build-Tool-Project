@@ -18,3 +18,4 @@ dbt docs generate
 dbt docs serve --port 8001
 dbt compile --select model.sql
 dbt show --select model.sql
+dbt show --select my_model.sql
